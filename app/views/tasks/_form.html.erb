@@ -1,0 +1,36 @@
+<%= form_with(model: @task, local: true) do |form| %>
+
+<% if @task.errors.any? %>
+  <div id="error_explanation">
+    <h2>入力ミスが<%= @task.errors.count %>件あります。</h2>
+    <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<table class="show">
+  <span><%= form.label :題名： %></span>
+  <span><%= form.text_field :title %></span>
+  <p>
+    <span>ラベル:</span>
+    <span>ステータス:</span>
+  </p>
+  <p>
+    <span>優先順位:</span>
+    <span>終了期限:</span>
+  </p>
+  <p>
+    <span>作成日:</span>
+    <span>更新日:</span>
+  </p>
+  <p>作成者:</p>
+  <p><%= form.label :説明： %></p>
+  <p><%= form.text_area :detail %></p>
+</table>
+
+<%= form.submit "作成" %>
+<% end %>
+<br>
