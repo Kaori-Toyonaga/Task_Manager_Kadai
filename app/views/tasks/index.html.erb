@@ -22,11 +22,11 @@
     <td>ラベル</td>
     <td>ステータス</td>
     <td>優先順位</td>
-    <td><%= task.title %></td>
+    <td class="task_row"><%= task.title %></td>
     <td><%= task.detail %></td>
     <td>終了期限</td>
     <td>作成者</td>
-    <td>作成日</td>
+    <td><%= task.created_at %></td>
     <td>更新日</td>
     <td><%= link_to '詳細', task_path(task.id) %></td>
     <td><%= link_to '削除', task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></td>

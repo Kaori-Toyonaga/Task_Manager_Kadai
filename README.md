@@ -26,3 +26,15 @@
 * t.string "password_digest"
 * t.datetime "created_at", null: false
 * t.datetime "updated_at", null: false
+
+<!-- ------------------------------------------------------------------ -->
+#Hou to Heroku Deploy
+
+* heroku create
+* rails assets:precompile RAILS_ENV=production
+* git add -A
+* git commit -m "init"
+* heroku buildpacks:set heroku/ruby
+* heroku buildpacks:add --index 1 heroku/nodejs
+* git push heroku master
+* heroku run rails db:migrate

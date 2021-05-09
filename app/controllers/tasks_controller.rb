@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.all
+    @tasks = Task.order("created_at DESC")
   end
 
   def show
@@ -35,7 +36,7 @@ class TasksController < ApplicationController
       render :edit
     end
   end
-  
+
   def destroy
     @task.destroy
     redirect_to tasks_path, notice:"削除しました。"
