@@ -1,0 +1,26 @@
+<h1>#:<%= @task.id %></h1>
+<!-- <a>%= link_to '編集', edit_task_path %></a> -->
+
+<table class="show">
+  <p>題名：<%= @task.title %></p>
+  <p>
+    <span>ラベル:</span>
+    <span>ステータス:</span>
+  </p>
+  <p>
+    <span>優先順位:</span>
+    <span>終了期限:</span>
+  </p>
+  <p>
+    <span>作成日:</span>
+    <span>更新日:</span>
+  </p>
+  <p>作成者:</p>
+
+  <p>――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――<p>
+
+  <p>説明:</p>
+  <p><%= @task.detail %></p>
+</table>
+
+<%= link_to "戻る", tasks_path %>
