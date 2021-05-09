@@ -13,10 +13,9 @@ RSpec.configure do |config|
          options.add_argument('no-sandbox')
        end
      end
-  end
+   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
-  config.disable_monkey_patching!
 
   if config.files_to_run.one?
     config.default_formatter = "doc"
