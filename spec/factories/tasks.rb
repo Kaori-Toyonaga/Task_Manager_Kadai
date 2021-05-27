@@ -20,25 +20,25 @@ FactoryBot.define do
   #   title { 'title2' }
   # end
 
-  factory :task do
-    title { 'title1' }
-    status { '未着手' }
-    detail { 'detail1' }
-  end
-  factory :second_task, class: Task do
-    title { 'sample' }
-    status { '着手中' }
-    detail { 'detail2' }
-  end
-
   # factory :task do
-  #   priority { '中' }
-  #   detail { 'detail1' }
   #   title { 'title1' }
+  #   status { '未着手' }
+  #   detail { 'detail1' }
   # end
   # factory :second_task, class: Task do
-  #   priority { '高' }
+  #   title { 'sample' }
+  #   status { '着手中' }
   #   detail { 'detail2' }
-  #   title { 'title2' }
   # end
+
+  factory :task do
+    priority { '中' }
+    detail { 'detail1' }
+    title { 'title1' }
+  end
+  factory :second_task, class: Task do
+    priority { '高' }
+    detail { 'detail2' }
+    title { 'title2' }
+  end
 end

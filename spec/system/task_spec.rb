@@ -1,47 +1,47 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  describe '検索機能' do
-    context 'タイトルであいまい検索をした場合' do
-      it "検索キーワードを含むタスクで絞り込まれる" do
-        visit new_task_path
-        task = FactoryBot.create(:task, title: 'title1')
-        task = FactoryBot.create(:second_task, title: 'sample')
-        visit tasks_path
-        fill_in 'title_key', with: 'title1'
-        click_on '検索'
-        expect(page).to have_content 'title1'
-        expect(page).to_not have_content 'sample'
-      end
-    end
-
-    context 'ステータス検索をした場合' do
-      it "ステータスに完全一致するタスクが絞り込まれる" do
-        visit new_task_path
-        task = FactoryBot.create(:task, title: 'title1', status: '未着手')
-        task = FactoryBot.create(:task, title: 'sample', status: '着手中')
-        visit tasks_path
-        select '未着手', from: 'ステータス'
-        click_on '検索'
-        expect(page).to have_content 'title1'
-        expect(page).to_not have_content 'sample'
-      end
-    end
-
-    context 'タイトルのあいまい検索とステータス検索をした場合' do
-      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-        visit new_task_path
-        task = FactoryBot.create(:task, title: 'title1', status: '未着手')
-        task = FactoryBot.create(:task, title: 'sample', status: '着手中')
-
-        visit tasks_path
-        fill_in 'title_key', with: 'title1'
-        select '未着手', from: 'ステータス'
-        click_on '検索'
-        expect(page).to have_content 'title1'
-        expect(page).to_not have_content 'sample'
-      end
-    end
-  end
+  # describe '検索機能' do
+  #   context 'タイトルであいまい検索をした場合' do
+  #     it "検索キーワードを含むタスクで絞り込まれる" do
+  #       visit new_task_path
+  #       task = FactoryBot.create(:task, title: 'title1')
+  #       task = FactoryBot.create(:second_task, title: 'sample')
+  #       visit tasks_path
+  #       fill_in 'title_key', with: 'title1'
+  #       click_on '検索'
+  #       expect(page).to have_content 'title1'
+  #       expect(page).to_not have_content 'sample'
+  #     end
+  #   end
+  #
+  #   context 'ステータス検索をした場合' do
+  #     it "ステータスに完全一致するタスクが絞り込まれる" do
+  #       visit new_task_path
+  #       task = FactoryBot.create(:task, title: 'title1', status: '未着手')
+  #       task = FactoryBot.create(:task, title: 'sample', status: '着手中')
+  #       visit tasks_path
+  #       select '未着手', from: 'ステータス'
+  #       click_on '検索'
+  #       expect(page).to have_content 'title1'
+  #       expect(page).to_not have_content 'sample'
+  #     end
+  #   end
+  #
+  #   context 'タイトルのあいまい検索とステータス検索をした場合' do
+  #     it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+  #       visit new_task_path
+  #       task = FactoryBot.create(:task, title: 'title1', status: '未着手')
+  #       task = FactoryBot.create(:task, title: 'sample', status: '着手中')
+  #
+  #       visit tasks_path
+  #       fill_in 'title_key', with: 'title1'
+  #       select '未着手', from: 'ステータス'
+  #       click_on '検索'
+  #       expect(page).to have_content 'title1'
+  #       expect(page).to_not have_content 'sample'
+  #     end
+  #   end
+  # end
 
   # describe '新規作成機能' do
   #   context 'タスクを新規作成した場合' do
@@ -122,16 +122,16 @@ RSpec.describe 'タスク管理機能', type: :system do
   #   end
   # end
 
-  # context 'if clicked "priority"' do
-  #   it 'line up in DESC of priority' do
-  #     task = FactoryBot.create(:task, title: 'title1', priority: '中')
-  #     second_task = FactoryBot.create(:task, title: 'title2', priority: '高')
-  #     visit tasks_path
-  #     click_link '優先順位'
-  #     task_list = all('.task_row')
-  #     expect(task_list[0]).to have_content 'title2'
-  #     expect(task_list[1]).to have_content 'title1'
-  #   end
-  # end
+  context 'if clicked "priority"' do
+    it 'line up in DESC of priority' do
+      task = FactoryBot.create(:task, title: 'title1', priority: '中')
+      second_task = FactoryBot.create(:task, title: 'title2', priority: '高')
+      visit tasks_path
+      click_link '優先順位'
+      task_list = all('.task_row')
+      expect(task_list[0]).to have_content 'title2'
+      expect(task_list[1]).to have_content 'title1'
+    end
+  end
 
 end

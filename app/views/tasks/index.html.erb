@@ -35,10 +35,10 @@
     <td class="box_short"><%= task.priority %></td>
     <td class="task_row"><%= task.title %></td>
     <td class="line_clamp"><%= task.detail %></td>
-    <td class="box_short"><%= task.expired_at.strftime('%Y/%m/%d') %></td>
+    <td class="box_short"><%= task.expired_at %></td>
     <td>作成者</td>
-    <td class="box_short"><%= task.created_at.strftime('%Y/%m/%d') %></td>
-    <td class="box_short"><%= task.updated_at.strftime('%Y/%m/%d') %></td>
+    <td class="box_short"><%= task.created_at %></td>
+    <td class="box_short"><%= task.updated_at %></td>
     <td><%= link_to '詳細', task_path(task.id) %></td>
     <td><%= link_to '削除', task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></td>
 　</tr>
