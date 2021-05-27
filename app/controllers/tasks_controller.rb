@@ -51,4 +51,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
   end
 
+  def sort_params
+      params.permit(:sort)
+  end
+
 end

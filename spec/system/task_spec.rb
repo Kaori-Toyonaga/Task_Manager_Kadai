@@ -23,17 +23,18 @@ RSpec.describe 'タスク管理機能', type: :system do
     context '一覧画面に遷移した場合' do
       it '作成済みのタスク一覧が表示される' do
         # テストで使用するためのタスクを作成
-        task = FactoryBot.create(:task, title: 'task')
+        task = FactoryBot.create(:task, title: 'title1')
         # タスク一覧ページに遷移
         visit tasks_path
         # visitした（遷移した）page（タスク一覧ページ）に「task」という文字列が
         # have_contentされているか（含まれているか）ということをexpectする（確認・期待する）
-        expect(page).to have_content 'task'
+        expect(page).to have_content 'title1'
         # expectの結果が true ならテスト成功、false なら失敗として結果が出力される
       end
     end
   end
 
+<<<<<<< HEAD
   context 'タスクが作成日時の降順に並んでいる場合' do
     it '新しいタスクが一番上に表示される' do
       task = FactoryBot.create(:task, title: 'title1')
@@ -45,11 +46,23 @@ RSpec.describe 'タスク管理機能', type: :system do
     end
   end
 
+=======
+    context 'タスクが作成日時の降順に並んでいる場合' do
+      it '新しいタスクが一番上に表示される' do
+        task = FactoryBot.create(:task, title: 'title1')
+        second_task = FactoryBot.create(:task, title: 'title2')
+        visit tasks_path
+        task_list = all('.task_row')
+        expect(task_list[0]).to have_content 'title2'
+        expect(task_list[1]).to have_content 'title1'
+      end
+    end
+>>>>>>> d45627e1b638b32b497e92a40b980116205073e9
 
   describe '詳細表示機能' do
      context '任意のタスク詳細画面に遷移した場合' do
        it '該当タスクの内容が表示される' do
-         task = FactoryBot.create(:task, title: 'task')
+         task = FactoryBot.create(:task, title: 'title1')
          visit task_path(task.id)
          expect(page).to have_content '#:'
        end
