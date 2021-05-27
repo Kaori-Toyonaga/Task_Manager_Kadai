@@ -9,9 +9,9 @@
     <th>ラベル</th>
     <th>ステータス</th>
     <th>優先順位</th>
-    <th>題名</th>
-    <th>説明</th>
-    <th>終了期限</th>
+    <th class="task_row">題名</th>
+    <th class="box_clamp">説明</th>
+    <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
     <th>作成者</th>
     <th>作成日</th>
     <th>更新日</th>
@@ -21,10 +21,9 @@
     <td><%= task.id %></td>
     <td>ラベル</td>
     <td>ステータス</td>
-    <td>優先順位</td>
     <td class="task_row"><%= task.title %></td>
-    <td><%= task.detail %></td>
-    <td>終了期限</td>
+    <td class="line_clamp"><%= task.detail %></td>
+    <td class="box_short"><%= task.expired_at.strftime('%Y/%m/%d') %></td>
     <td>作成者</td>
     <td><%= task.created_at %></td>
     <td>更新日</td>

@@ -7,12 +7,7 @@ Bundler.require(*Rails.groups)
 module TaskManagerKadai
   class Application < Rails::Application
     config.load_defaults 5.2
-<<<<<<< HEAD
-=======
-    
->>>>>>> d45627e1b638b32b497e92a40b980116205073e9
     config.time_zone = 'Tokyo'
-
     config.generators do |g|
       g.test_framework :rspec,
                        model_specs: true,

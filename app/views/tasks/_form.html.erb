@@ -20,7 +20,8 @@
   </p>
   <p>
     <span>優先順位:</span>
-    <span>終了期限:</span>
+    <span class="label"><%= form.label :終了期限： %>
+    <span class="date_field"><%= form.date_field :expired_at %></span>
   </p>
   <p>
     <span>作成日:<%= task.created_at %></span>
