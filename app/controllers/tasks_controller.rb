@@ -2,15 +2,25 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:sort_expired]
+    if params[:title_key] && params[:status] != "未選択"
+      @tasks = Task.search_title_status(params[:title_key], params[:status])
+      # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: params[:status])
+    elsif params[:title_key] && params[:status] == "未選択"
+      @tasks = Task.search_title(params[:title_key]).search_status(params[:status])
+      # @tasks = Task.search_title(params[:title_key]).search_status(status: [2..4])
+      # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: [2..4])
+    # elsif params[:status] == "未選択"
+    #   @tasks = Task.search_status_2_4
+    # elsif params[:status] != "未選択"
+    #   @tasks = Task.search_status(params[:status])
+    elsif params[:sort_expired]
       @tasks = Task.all.order('expired_at DESC')
-    elsif
-      @tasks = Task.order("created_at DESC")
+    # elsif params[:sort_priority]
+    #   @tasks = Task.all.order('priority DESC')
     else
-      @tasks = Task.all
+      @tasks = Task.all.order('created_at DESC')
     end
   end
-
 
   def show
   end
