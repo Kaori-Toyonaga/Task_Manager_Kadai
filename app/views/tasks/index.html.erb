@@ -7,7 +7,7 @@
   <tr>
     <th>#</th>
     <th>ラベル</th>
-    <th>ステータス</th>
+    <th class="box_short">ステータス</th>
     <th>優先順位</th>
     <th>題名</th>
     <th class="box_clamp">説明</th>
@@ -18,15 +18,15 @@
   </tr>
   <tr>
   <% @tasks.each do |task| %>
-    <td><%= task.id %></td>
+  <td class="box_harf"><%= task.id %></td>
     <td>ラベル</td>
-    <td>ステータス</td>
+    <td class="box_short"><%= task.status %></td>
     <td class="task_row"><%= task.title %></td>
     <td class="line_clamp"><%= task.detail %></td>
     <td class="box_short"><%= task.expired_at.strftime('%Y/%m/%d') %></td>
     <td>作成者</td>
-    <td><%= task.created_at %></td>
-    <td>更新日</td>
+    <td class="box_short"><%= task.created_at.strftime('%Y/%m/%d') %></td>
+    <td class="box_short"><%= task.updated_at.strftime('%Y/%m/%d') %></td>
     <td><%= link_to '詳細', task_path(task.id) %></td>
     <td><%= link_to '削除', task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></td>
 　</tr>

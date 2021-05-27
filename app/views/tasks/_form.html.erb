@@ -12,11 +12,14 @@
 <% end %>
 
 <table class="show">
-  <span><%= form.label :題名： %></span>
-  <span><%= form.text_field :title %></span>
   <p>
-    <span>ラベル:</span>
-    <span>ステータス:</span>
+    <span class="label"><%= form.label :題名： %></span>
+    <span class="text_title"><%= form.text_field :title %></span>
+  </p>
+  <p>
+    <!-- <span>ラベル:</span> -->
+    <span class="label"><%= form.label :ステータス： %></span>
+    <span class="select_status"><%= form.select :status, [['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], {} %></span>
   </p>
   <p>
     <span>優先順位:</span>
