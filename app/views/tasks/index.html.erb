@@ -19,7 +19,7 @@
     <th>#</th>
     <th>ラベル</th>
     <th class="box_short">ステータス</th>
-    <th>優先順位</th>
+    <th class="box_short"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
     <th>題名</th>
     <th class="box_clamp">説明</th>
     <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
@@ -32,6 +32,7 @@
   <td class="box_harf"><%= task.id %></td>
     <td>ラベル</td>
     <td class="box_short"><%= task.status %></td>
+    <td class="box_short"><%= task.priority %></td>
     <td class="task_row"><%= task.title %></td>
     <td class="line_clamp"><%= task.detail %></td>
     <td class="box_short"><%= task.expired_at.strftime('%Y/%m/%d') %></td>

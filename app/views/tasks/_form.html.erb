@@ -22,7 +22,8 @@
     <span class="select_status"><%= form.select :status, [['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], {} %></span>
   </p>
   <p>
-    <span>優先順位:</span>
+    <span class="label"><%= form.label :優先順位： %></span>
+    <span class="select_priority"><%= form.select :priority, [['低', '低'], ['中', '中'], ['高', '高']], {} %></span>
     <span class="label"><%= form.label :終了期限： %>
     <span class="date_field"><%= form.date_field :expired_at %></span>
   </p>
