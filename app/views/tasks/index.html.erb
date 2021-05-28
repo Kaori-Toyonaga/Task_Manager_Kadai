@@ -1,5 +1,5 @@
-<h1>タスク一覧</h1>
-
+<h1 class="title">Rednine 9</h1>
+<h4>タスク一覧</h4>
 <p><%= notice %></p>
 
 <%= form_with url:'/tasks', method: :get, local: true do |f| %>
@@ -8,40 +8,44 @@
   <%= f.label :status, 'ステータス' %>
   <%= f.select :status, [['未選択', '未選択'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], {}, {class: 'status_serch'} %>
   <%= f.submit '検索', class: "btn_search" %>
-  <button type="button" class="btn-secondary"><%= link_to 'Clear', tasks_path %></button>
+  <button type="button" class="btn-secondary"><%= link_to 'リセット', tasks_path %></button>
 <% end %>
 <br>
 <button type="button" class="btn-outline-danger"><%= link_to '新規作成', new_task_path %></button>
 
-<table class="index">
-  <tr>
-    <th class="box_short">#</th>
-    <!-- <th>ラベル</th> -->
-    <th class="box_short">ステータス</th>
-    <th class="box_short"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
-    <th>題名</th>
-    <th class="box_clamp">説明</th>
-    <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
-    <th>作成者</th>
-    <th>作成日</th>
-    <th>更新日</th>
-  </tr>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th class="box_short">#</th>
+      <!-- <th>ラベル</th> -->
+      <th class="box_short">ステータス</th>
+      <th class="box_short">優先順位<%= link_to "▼▲", tasks_path(sort_priority: "true") %></th>
+      <th class="box_title">題名</th>
+      <th class="box_clamp">説明</th>
+      <th class="box_short">終了期限<%= link_to "▼▲", tasks_path(sort_expired: "true") %></th>
+      <th class="box_short">作成者</th>
+      <th class="box_short">作成日</th>
+      <th class="box_short">更新日</th>
+    </tr>
 
-  <tr>
-  <% @tasks.each do |task| %>
+    <tr>
+    <% @tasks.each do |task| %>
       <td class="box_harf"><%= task.id %></td>
-    <!-- <td>ラベル</td> -->
-    <td class="box_short"><%= task.status %></td>
-    <td class="box_short"><%= task.priority %></td>
-    <td class="task_row"><%= task.title %></td>
-    <td class="line_clamp"><%= task.detail %></td>
-    <td class="box_short"><%= task.expired_at %></td>
-    <td>作成者</td>
-    <td class="box_short"><%= task.created_at %></td>
-    <td class="box_short"><%= task.updated_at %></td>
-    <td><%= link_to '詳細', task_path(task.id) %></td>
-    <td><%= link_to '削除', task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></td>
-　</tr>
-  <% end %>
-  <%= paginate @tasks %>
+      <!-- <td>ラベル</td> -->
+      <td class="box_short"><%= task.status %></td>
+      <td class="box_short"><%= task.priority %></td>
+      <td class="task_row"><%= task.title %></td>
+      <td class="line_clamp"><%= task.detail %></td>
+      <td class="box_short"><%= task.expired_at %></td>
+      <td class="box_short">作成者</td>
+      <td class="box_short"><%= task.created_at %></td>
+      <td class="box_short"><%= task.updated_at %></td>
+      <td class="small_box">
+        <a><font size="1"><%= link_to '詳細', task_path(task.id) %></font></a>
+        <a><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></a>
+      </td>
+    </tr>
+    <% end %>
+    <%= paginate @tasks %>
+  </thead>
 </table>

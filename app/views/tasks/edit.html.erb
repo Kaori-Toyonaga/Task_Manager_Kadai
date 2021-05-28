@@ -1,5 +1,4 @@
 <h1>#:<%= @task.id %></h1>
-<h3><%= @task.title %></h3>
 <%= render 'form', task: @task %>
 
-<%= link_to "戻る", tasks_path %>
+<span class="content"><%= link_to "back", tasks_path %></span>
