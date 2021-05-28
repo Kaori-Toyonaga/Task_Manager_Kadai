@@ -2,11 +2,12 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   def index
+    @tasks = Task.page(params[:page]).per(20)
     if params[:title_key] && params[:status] != "未選択"
-      @tasks = Task.search_title_status(params[:title_key], params[:status])
+      @tasks = Task.search_title_status(params[:title_key], params[:status]).page(params[:page]).per(20)
       # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: params[:status])
     elsif params[:title_key] && params[:status] == "未選択"
-      @tasks = Task.search_title(params[:title_key]).search_status(params[:status])
+      @tasks = Task.search_title(params[:title_key]).search_status(params[:status]).page(params[:page]).per(20)
       # @tasks = Task.search_title(params[:title_key]).search_status(status: [2..4])
       # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: [2..4])
     # elsif params[:status] == "未選択"
@@ -14,11 +15,11 @@ class TasksController < ApplicationController
     # elsif params[:status] != "未選択"
     #   @tasks = Task.search_status(params[:status])
     elsif params[:sort_expired]
-      @tasks = Task.all.order('expired_at DESC')
+      @tasks = Task.all.order('expired_at DESC').page(params[:page]).per(20)
     elsif params[:sort_priority]
-      @tasks = Task.all.order('priority DESC')
+      @tasks = Task.all.order('priority DESC').page(params[:page]).per(20)
     else
-      @tasks = Task.all.order('created_at DESC')
+      @tasks = Task.all.order('created_at DESC').page(params[:page]).per(20)
     end
   end
 
