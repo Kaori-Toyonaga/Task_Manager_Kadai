@@ -18,13 +18,13 @@
       <span class="label">優先順位:</span>
       <span><%= @task.priority %></span>
       <span class="label">終了期限:</span>
-      <span><%= @task.expired_at.strftime('%Y/%m/%d') %></span>
+      <span><%= @task.expired_at %></span>
     </p>
     <p>
       <span class="label">作成日:</span>
-      <span><%= @task.created_at.strftime('%Y/%m/%d') %></span>
+      <span><%= @task.created_at %></span>
       <span class="label">更新日:</span>
-      <span><%= @task.updated_at.strftime('%Y/%m/%d') %></span>
+      <span><%= @task.updated_at %></span>
     </p>
     <p>
       <span class="label">作成者:</span>

@@ -19,10 +19,10 @@
       <th class="box_short">#</th>
       <!-- <th>ラベル</th> -->
       <th class="box_short">ステータス</th>
-      <th class="box_short">優先順位<%= link_to "▼▲", tasks_path(sort_priority: "true") %></th>
+      <th class="box_short"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
       <th class="box_title">題名</th>
       <th class="box_clamp">説明</th>
-      <th class="box_short">終了期限<%= link_to "▼▲", tasks_path(sort_expired: "true") %></th>
+      <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
       <th class="box_short">作成者</th>
       <th class="box_short">作成日</th>
       <th class="box_short">更新日</th>
