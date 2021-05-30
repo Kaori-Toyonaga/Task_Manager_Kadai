@@ -1,0 +1,23 @@
+<h2>ログイン</h2>
+
+<div><font size="2">
+<%= form_with(model: @user, local: true) do |f| %>
+  <%= f.label :メールアドレス %>
+  <%= f.email_field :email, :placeholder => "メールアドレス" %>
+  <%= f.label :パスワード %>
+  <%= f.password_field :password, :placeholder => "パスワード" %>
+  <%= f.submit "ログイン", class: "btn_confirm" %>
+<% end %>
+</font></div>
+
+<div>
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
+
+  <% if logged_in? %>
+    <span><%= link_to "ログアウト", session_path(current_user.id), method: :delete %></span>
+  <% else %>
+    <span><%= link_to "新規登録", new_user_path %></span>
+  <% end %>
+</div>

@@ -11,30 +11,29 @@
   </div>
 <% end %>
 
-<div class="container-fluid"><font size="2">
+<div><font size="2">
 <%= form_with(model: @user, local: true) do |f| %>
-  <div class="top">
-    <%= f.label :登録名 %>
-    <%= f.text_field :name, :placeholder => "姓　名" %>
-    <%= f.label :メールアドレス %>
-    <%= f.email_field :email, :placeholder => "abc@xxx.com" %>
-    <%= f.label :パスワード %>
-    <%= f.password_field :password, :placeholder => "6文字以上" %>
-    <%= f.label :パスワード %>
-    <%= f.password_field :password_confirmation, :placeholder => "再度入力してください" %>
-    <%= f.submit "登録", class: "btn_confirm" %>
-  </div>
+  <%= f.label :登録名 %>
+  <%= f.text_field :name, :placeholder => "姓　名" %>
+  <%= f.label :メールアドレス %>
+  <%= f.email_field :email, :placeholder => "abc@xxx.com" %>
+  <%= f.label :パスワード %>
+  <%= f.password_field :password, :placeholder => "6文字以上" %>
+  <%= f.label :パスワード %>
+  <%= f.password_field :password_confirmation, :placeholder => "再度入力してください" %>
+  <%= f.submit "登録", class: "btn_confirm" %>
 <% end %>
   <br>
+</div>
 
-  <!-- <div class="hooter">
-    <p>%= link_to "ログイン", new_session_path %></p>
+<div>
+  <p><%= link_to "ログイン", new_session_path %></p>
 
-  % flash.each do |key, value| %>
-  　%= content_tag(:div, value, class: "#{key}") %>
-  % end %>
-  % if logged_in? %>
-    %= link_to "ログアウト", session_path(current_user.id), method: :delete %>
-  % else %>
-  % end %> -->
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
+  <% if logged_in? %>
+    <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+  <% else %>
+  <% end %>
 </div>
