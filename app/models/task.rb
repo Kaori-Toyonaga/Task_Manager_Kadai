@@ -17,4 +17,6 @@ scope :search_title, -> (title) { where("title LIKE ?", "%#{title}%") }
 # scope :search_status, -> (status) { where(status: status) }
 scope :search_status, -> (status) { where(status: [2..4]) }
 
+belongs_to :user
+
 end

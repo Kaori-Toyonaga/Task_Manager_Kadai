@@ -1,5 +1,8 @@
+<h4><%= link_to 'My page', user_path(current_user.id) %></h4>
+
 <h1 class="title">Rednine 9</h1>
 <h4>タスク一覧</h4>
+
 <p><%= notice %></p>
 
 <%= form_with url:'/tasks', method: :get, local: true do |f| %>
@@ -37,7 +40,7 @@
       <td class="task_row"><%= task.title %></td>
       <td class="line_clamp"><%= task.detail %></td>
       <td class="box_short"><%= task.expired_at %></td>
-      <td class="box_short">作成者</td>
+      <td class="box_short"><%= task.user.name %></td>
       <td class="box_short"><%= task.created_at %></td>
       <td class="box_short"><%= task.updated_at %></td>
       <td class="small_box">

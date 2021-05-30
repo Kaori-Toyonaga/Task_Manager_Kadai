@@ -1,27 +1,19 @@
 <div class="container">
   <div class="row">
-    <span class="col-xs-3"><a class="name"><%= current_user.name %></a></span>
-    <span class="col-xs-1"><a class="name"><%= link_to "戻る", tasks_path %></a></span>
-    <span class="col-xs-5"> </span>
-    <span class="col-xs-1"><%= link_to '新規登録', new_task_path %></span>
-    <span class="col-xs-1">
+    <span class="col-xs-3"><class="name"><%= current_user.name %>のページ</span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><button type="button" class="btn-outline-danger"><%= link_to '新規作成', new_task_path %></button></span>
+    <span class="col-xs-1"><a class="name"><%= link_to "back", tasks_path %></a></span>
+      <span class="col-xs-1">
         <% flash.each do |key, value| %>
           <%= content_tag(:div, value, class: "#{key}") %>
         <% end %>
         <% if logged_in? %>
-          <%= link_to 'ログアウト', session_path(current_user.id), method: :delete %>
+          <%= link_to image_tag('logout.png', size: '30x30'), session_path(current_user.id), method: :delete %>
         <% else %>
         <% end %>
     </span>
   </div>
-
-  <div class="row">
-    <span class="col-xs-4">
-      <p class="sub_name"><%= @user.name %></p>
-    </span>
-  </div>
-
-</div>
 
 <table class="table">
   <thead class="thead-dark">

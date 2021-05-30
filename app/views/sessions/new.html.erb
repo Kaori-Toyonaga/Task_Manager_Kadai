@@ -1,7 +1,7 @@
 <h2>ログイン</h2>
 
 <div><font size="2">
-<%= form_with(model: @user, local: true) do |f| %>
+<%= form_with(scope: :session, url: sessions_path, local: true) do |f| %>
   <%= f.label :メールアドレス %>
   <%= f.email_field :email, :placeholder => "メールアドレス" %>
   <%= f.label :パスワード %>

@@ -24,6 +24,7 @@ class TasksController < ApplicationController
   end
 
   def show
+    @tasks = current_user.tasks.find_by(post_id: @task.id)
   end
 
   def new
@@ -31,7 +32,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if params[:back]
       render :new
     else
@@ -61,7 +62,7 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority)
+    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id)
   end
 
   def set_task
