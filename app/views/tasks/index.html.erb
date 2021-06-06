@@ -57,9 +57,8 @@
       <td class="box_short"><%= task.created_at %></td>
       <td class="box_short"><%= task.updated_at %></td>
       <td class="small_box">
-
+        <a><font size="1"><%= link_to '詳細', task_path(task.id) %></font></a>
         <% if task.user_id == current_user.id %>
-          <a><font size="1"><%= link_to '詳細', task_path(task.id) %></font></a>
           <a><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></a>
         <% else %>
         <% end %>
