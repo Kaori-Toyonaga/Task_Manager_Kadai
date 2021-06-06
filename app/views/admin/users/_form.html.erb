@@ -1,30 +1,26 @@
+<div><font size="2">
 <%= form_with(model: [:admin, @user], local: true) do |form| %>
-
-    <div class="user_list">
-      <%= form.label :name %>
-      <%= form.text_field :name %>
-    </div>
-
-    <div class="user_list">
-      <%= form.label :email %>
-      <%= form.email_field :email %>
-    </div>
-
-    <div class="user_list">
-      <%= form.label :管理者権限 %>
-      <%= form.check_box :admin %>
-    </div>
-
-    <div class="user_list">
-      <%= form.label :password %>
-      <%= form.password_field :password %>
-    </div>
-
-    <div class="user_list">
-      <%= form.label :password_confirmation %>
-      <%= form.password_field :password_confirmation %>
-    </div>
-
-      <%= form.submit %>
-
+  <%= form.label :登録名 %>
+  <%= form.text_field :name, :placeholder => "姓　名" %>
+  <%= form.label :メールアドレス %>
+  <%= form.email_field :email, :placeholder => "abc@xxx.com" %>
+  <%= form.label :管理者権限 %>
+  <%= form.check_box :admin %>
+  <%= form.label :パスワード %>
+  <%= form.password_field :password, :placeholder => "6文字以上" %>
+  <%= form.label :パスワード %>
+  <%= form.password_field :password_confirmation, :placeholder => "再度入力してください" %>
+  <%= form.submit "登録", class: "btn_confirm" %>
 <% end %>
+  <br>
+</div>
+
+<div>
+  <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+  <% end %>
+  <% if logged_in? %>
+    <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+  <% else %>
+  <% end %>
+</div>

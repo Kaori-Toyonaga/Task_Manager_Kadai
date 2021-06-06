@@ -1,4 +1,19 @@
-<h2>ユーザー登録一覧</h2>
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3" class="title">ユーザー一覧</span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><%= link_to 'task', tasks_path %></span>
+    <span class="col-xs-1"><%= link_to 'My page', user_path(current_user.id) %></span>
+      <span class="col-xs-1">
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
+        <% if logged_in? %>
+          <%= link_to image_tag('logout.png', size: '30x30'), session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
 
 <table class="table">
 <br>
@@ -19,8 +34,8 @@
           <td><%= user.name %></td>
           <td><%= user.admin %></td>
           <td><%= user.tasks.count %></td>
-          <td><%= link_to 'Show', admin_user_path(user) %></td>
-          <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
+          <td><%= link_to '詳細', admin_user_path(user) %></td>
+          <td><%= link_to image_tag('edit.png', size: '20x20'), edit_admin_user_path(user) %></td>
           <td><%= link_to image_tag('delete.png', size: '15x15'), admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
         </tr>
       <% end %>
@@ -28,4 +43,4 @@
 </table>
 <br>
 <br>
-<button type="button" class="btn btn-success btn-sm"><%= link_to '新規ユーザー作成', new_admin_user_path %></button>
+<button type="button" class="btn-outline-danger"><%= link_to '新規ユーザー作成', new_admin_user_path %></button>

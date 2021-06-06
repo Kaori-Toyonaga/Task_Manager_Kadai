@@ -1,8 +1,7 @@
 <h2><%= @user.name %>のページ編集</h2>
+<span class="content"><%= link_to 'Back', user_path %></span>
 <br>
-<%= render 'form', user: @user %>
+<p><%= notice %></p>
+<br>
 
-<br>
-<br>
-<button type="button" class="btn btn-info btn-sm"><%= link_to 'Show', @user %></button>
-<button type="button" class="btn btn-info btn-sm"><%= link_to 'Back', user_path %></button>
+<%= render 'form', user: @user %>
