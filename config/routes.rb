@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
-  get 'sessions/new'
-  root to: 'tasks#index'
+  root to: 'sessions#new'
+  # root to: 'admin/users#new'
+
   resources :tasks
-  resources :sessions, only: [:new, :create, :destroy]
-  resources :users, only: [:new, :create, :show]
+  resources :sessions
+  resources :users
+
+  namespace :admin do
+    resources :users
+  end
+
 end

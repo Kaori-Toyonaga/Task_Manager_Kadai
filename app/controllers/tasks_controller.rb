@@ -8,7 +8,7 @@ class TasksController < ApplicationController
       # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: params[:status])
     elsif params[:title_key] && params[:status] == "未選択"
       @tasks = Task.search_title(params[:title_key]).search_status(params[:status]).page(params[:page]).per(20)
-      # @tasks = Task.search_title(params[:title_key]).search_status(status: [2..4])
+      # @tasks = Task.search_title(params[:title_key]).search_status(status: [2..4]).page(params[:page]).per(20)
       # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: [2..4])
     # elsif params[:status] == "未選択"
     #   @tasks = Task.search_status_2_4
@@ -24,7 +24,6 @@ class TasksController < ApplicationController
   end
 
   def show
-    @tasks = current_user.tasks.find_by(post_id: @task.id)
   end
 
   def new
