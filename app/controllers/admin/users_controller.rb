@@ -20,7 +20,7 @@ class Admin::UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      flash[:notice] =  "ユーザー #{@user.name} 更新しました"
+      flash[:notice] =  "#{@user.name} の情報を更新しました"
       redirect_to admin_users_path
     else
       render :edit, notice: "#{@user.name} の管理者権限を外すと管理者がいなくなります"

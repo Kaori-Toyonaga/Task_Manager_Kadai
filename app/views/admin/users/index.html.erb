@@ -5,16 +5,17 @@
     <span class="col-xs-1"><%= link_to 'task', tasks_path %></span>
     <span class="col-xs-1"><%= link_to 'My page', user_path(current_user.id) %></span>
       <span class="col-xs-1">
-        <% flash.each do |key, value| %>
-          <%= content_tag(:div, value, class: "#{key}") %>
-        <% end %>
+        <!-- % flash.each do |key, value| %>
+          %= content_tag(:div, value, class: "#{key}") %>
+        % end %> -->
         <% if logged_in? %>
           <%= link_to image_tag('logout.png', size: '30x30'), session_path(current_user.id), method: :delete %>
         <% else %>
         <% end %>
     </span>
   </div>
-
+<p><%= notice %></p>
+<br>
 <table class="table">
 <br>
   <thead>
