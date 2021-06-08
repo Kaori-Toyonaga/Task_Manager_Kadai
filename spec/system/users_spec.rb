@@ -13,60 +13,60 @@ RSpec.describe 'タスク管理機能', type: :system do
     FactoryBot.create(:user)
   end
 
-  describe 'ユーザー新規作成機能' do
-    context 'ユーザーを新規作成した場合' do
-      it 'ユーザー登録ができる' do
+  # describe 'ユーザー新規作成機能' do
+  #   context 'ユーザーを新規作成した場合' do
+  #     it 'ユーザー登録ができる' do
+  #
+  #       visit new_user_path
+  #       expect(new_user_path).to eq new_user_path
+  #       fill_in 'user[name]',with: 'user'
+  #       fill_in 'user[email]',with: 'user001@user.com'
+  #       #fill_in 'user[admin]', with: 'true​'
+  #       fill_in 'user[password]',with: '000000​'
+  #       fill_in 'user[password_confirmation]',with: '000000​'
+  #       click_on '登録'
+  #       expect(page).to have_content 'user'
+  #       #expect(page).to have_content 'user001@user.com'
+  #
+  #     end
+  #
+  #     it '​ログインしていない時はログイン画面に飛ぶテスト​' do
+  #       visit tasks_path
+  #       expect(current_path).to eq new_session_path
+  #     end
+  #
+  #   end
+  # end
 
-        visit new_admin_user_path
-        fill_in 'user_name', with: 'user​'
-        fill_in 'user_email', with: 'user001@user.com​'
-        fill_in 'user_admin', with: 'true​'
-        fill_in 'user_password', with: '000000​'
-        fill_in 'user_password_confirmation', with: '000000​'
+  describe 'セッション機能' do
+    context 'ログインした場合' do
+      it 'ログインができること' do
+        visit new_session_path
+        fill_in 'user[email]',with: 'user001@user.com'
+        fill_in 'user[password]',with: '000000​'
 
-        click_on '登録'
-
+        click_on 'ログイン'
         visit tasks_path
         expect(page).to have_content 'タスク一覧'
-
       end
 
-      it '​ログインしていない時はログイン画面に飛ぶテスト​' do
-        visit tasks_path
-        expect(current_path).to eq new_session_path
-      end
-
+      # it '​自分の詳細画面(マイページ)に飛べること​' do
+      #   visit user_path(id: @user.id)
+      #   expect(current_path).to eq user_path(id: @user.id)
+      # end
+      #
+      # it "一般ユーザが他人の詳細画面に飛ぶとタスク一覧ページに遷移すること" do
+      #   visit user_path(2)
+      #   expect(page).to have_content "権限がありません。ログインしてください。"
+      # end
+      #
+      # it "ログイン画面に戻る" do
+      #   visit user_path(id: @user.id)
+      #   click_link "ログアウト"
+      #   expect(page).to have_content "ログアウトしました"
+      # end
     end
   end
-
-#   describe 'セッション機能' do
-#     context 'ログインした場合' do
-#       it 'ログインができるこ' do
-#         visit new_session_path
-#         user = FactoryBot.create(:user, name: 'テスト　太郎', email: 'test@test.com', password: '111111')
-#
-#         click_on 'ログイン'
-#         visit tasks_path
-#         expect(page).to have_content 'タスク一覧'
-#       end
-#
-#       it '​自分の詳細画面(マイページ)に飛べること​' do
-#         visit user_path(id: @user.id)
-#         expect(current_path).to eq user_path(id: @user.id)
-#       end
-#
-#       it "一般ユーザが他人の詳細画面に飛ぶとタスク一覧ページに遷移すること" do
-#         visit user_path(2)
-#         expect(page).to have_content "権限がありません。ログインしてください。"
-#       end
-#
-#       it "ログイン画面に戻る" do
-#         visit user_path(id: @user.id)
-#         click_link "ログアウト"
-#         expect(page).to have_content "ログアウトしました"
-#       end
-#     end
-#   end
 #
 #   describe "管理画面のテスト" do
 #     context "管理ユーザ作成" do
