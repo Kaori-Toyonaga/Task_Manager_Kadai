@@ -43,7 +43,7 @@
       <td class="box_short"><%= task.user.name %></td>
       <td class="box_short"><%= task.created_at.strftime('%Y/%m/%d') %></td>
       <td class="box_short"><%= task.updated_at.strftime('%Y/%m/%d') %></td>
-      <td class="box_harf"><font size="1"><%= link_to '詳細', task_path(task.id) %></font></td>
+      <td class="box_harf"><font size="1"><%= link_to 'の詳細', task_path(task.id) %></font></td>
       <td class="box_harf"><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></td>
 　  </tr>
   </thead>
