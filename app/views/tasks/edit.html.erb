@@ -1,4 +1,8 @@
 <h1>#:<%= @task.id %></h1>
+<p>
+  <span class="label">作成者:</span>
+  <span><%= @task.user.name %></span>
+</p>
 <%= render 'form', task: @task %>
 
 <span class="content"><%= link_to "back", tasks_path %></span>

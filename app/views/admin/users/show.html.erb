@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3" class="name"><%= @user.name %>のページ</span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><button type="button" class="btn-outline-danger"><%= link_to '新規作成', new_task_path %></button></span>
+    <span class="col-xs-1"><a class="name"><%= link_to "back", tasks_path %></a></span>
+      <span class="col-xs-1">
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
+        <% if logged_in? %>
+          <%= link_to image_tag('logout.png', size: '30x30'), session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
+
+<p>メールアドレス: <%= @user.email %></p>
+<p><%= notice %></p>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th class="box_short">#</th>
+      <!-- <th>ラベル</th> -->
+      <th class="box_short">ステータス</th>
+      <th class="box_short"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
+      <th class="box_title">題名</th>
+      <th class="box_clamp">説明</th>
+      <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
+      <th class="box_short">作成者</th>
+      <th class="box_short">作成日</th>
+      <th class="box_short">更新日</th>
+    </tr>
+
+    <tr>
+    <% @user.tasks.each do |task| %>
+      <td class="box_harf"><%= task.id %></td>
+      <!-- <td>ラベル</td> -->
+      <td class="box_short"><%= task.status %></td>
+      <td class="box_short"><%= task.priority %></td>
+      <td class="task_row"><%= task.title %></td>
+      <td class="line_clamp"><%= task.detail %></td>
+      <td class="box_short"><%= task.expired_at %></td>
+      <td class="box_short"><%= task.user.name %></td>
+      <td class="box_short"><%= task.created_at %></td>
+      <td class="box_short"><%= task.updated_at %></td>
+      <td class="small_box">
+        <a><font size="1"><%= link_to '詳細', task_path(task.id) %></font></a>
+        <a><%= link_to image_tag('edit.png', size: '20x20'), edit_task_path(task) %></a>
+        <a><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></a>
+      </td>
+    </tr>
+    <% end %>
+    </thead>
+</table>

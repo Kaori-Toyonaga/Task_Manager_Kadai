@@ -1,47 +1,47 @@
 require 'rails_helper'
 RSpec.describe 'タスク管理機能', type: :system do
-  describe '検索機能' do
-    context 'タイトルであいまい検索をした場合' do
-      it "検索キーワードを含むタスクで絞り込まれる" do
-        visit new_task_path
-        task = FactoryBot.create(:task, title: 'title1')
-        task = FactoryBot.create(:second_task, title: 'sample')
-        visit tasks_path
-        fill_in 'title_key', with: 'title1'
-        click_on '検索'
-        expect(page).to have_content 'title1'
-        expect(page).to_not have_content 'sample'
-      end
-    end
-
-    context 'ステータス検索をした場合' do
-      it "ステータスに完全一致するタスクが絞り込まれる" do
-        visit new_task_path
-        task = FactoryBot.create(:task, title: 'title1', status: '未着手')
-        task = FactoryBot.create(:task, title: 'sample', status: '着手中')
-        visit tasks_path
-        select '未着手', from: 'ステータス'
-        click_on '検索'
-        expect(page).to have_content 'title1'
-        expect(page).to_not have_content 'sample'
-      end
-    end
-
-    context 'タイトルのあいまい検索とステータス検索をした場合' do
-      it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-        visit new_task_path
-        task = FactoryBot.create(:task, title: 'title1', status: '未着手')
-        task = FactoryBot.create(:task, title: 'sample', status: '着手中')
-
-        visit tasks_path
-        fill_in 'title_key', with: 'title1'
-        select '未着手', from: 'ステータス'
-        click_on '検索'
-        expect(page).to have_content 'title1'
-        expect(page).to_not have_content 'sample'
-      end
-    end
-  end
+  # describe '検索機能' do
+  #   context 'タイトルであいまい検索をした場合' do
+  #     it "検索キーワードを含むタスクで絞り込まれる" do
+  #       visit new_task_path
+  #       task = FactoryBot.create(:task, title: 'title1')
+  #       task = FactoryBot.create(:second_task, title: 'sample')
+  #       visit tasks_path
+  #       fill_in 'title_key', with: 'title1'
+  #       click_on '検索'
+  #       expect(page).to have_content 'title1'
+  #       expect(page).to_not have_content 'sample'
+  #     end
+  #   end
+  #
+  #   context 'ステータス検索をした場合' do
+  #     it "ステータスに完全一致するタスクが絞り込まれる" do
+  #       visit new_task_path
+  #       task = FactoryBot.create(:task, title: 'title1', status: '未着手')
+  #       task = FactoryBot.create(:task, title: 'sample', status: '着手中')
+  #       visit tasks_path
+  #       select '未着手', from: 'ステータス'
+  #       click_on '検索'
+  #       expect(page).to have_content 'title1'
+  #       expect(page).to_not have_content 'sample'
+  #     end
+  #   end
+#
+#     context 'タイトルのあいまい検索とステータス検索をした場合' do
+#       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
+#         visit new_task_path
+#         task = FactoryBot.create(:task, title: 'title1', status: '未着手')
+#         task = FactoryBot.create(:task, title: 'sample', status: '着手中')
+#
+#         visit tasks_path
+#         fill_in 'title_key', with: 'title1'
+#         select '未着手', from: 'ステータス'
+#         click_on '検索'
+#         expect(page).to have_content 'title1'
+#         expect(page).to_not have_content 'sample'
+#       end
+#     end
+#   end
 
   # describe '新規作成機能' do
   #   context 'タスクを新規作成した場合' do
@@ -50,7 +50,7 @@ RSpec.describe 'タスク管理機能', type: :system do
   #       visit new_task_path
   #       # 2. 新規登録内容を入力する
   #       #「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄にタスクのタイトルと内容をそれぞれ入力する
-  #       fill_in 'task[title]', with: 'title'
+    #       fill_in 'task[title]', with: 'title'
   #       fill_in 'task[detail]', with: 'detail'
   #       # 3. 「登録する」というvalue（表記文字）のあるボタンをクリックする
   #       click_on '作成'

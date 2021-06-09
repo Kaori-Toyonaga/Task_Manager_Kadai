@@ -1,6 +1,23 @@
-<h1 class="title">Rednine 9</h1>
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3" class="title">Rednine 9</span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><%= link_to 'MyPage', user_path(current_user.id) %></span>
+    <span class="col-xs-1"><%= link_to 'Admin', admin_users_path(current_user.id) %></span>
+      <span class="col-xs-1">
+        <% if logged_in? %>
+          <%= link_to 'ログアウト', session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
 <h4>タスク一覧</h4>
-<p><%= notice %></p>
+
+<div>
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+</div>
 
 <%= form_with url:'/tasks', method: :get, local: true do |f| %>
   <%= f.label :title_key, '題名' %>
@@ -37,12 +54,16 @@
       <td class="task_row"><%= task.title %></td>
       <td class="line_clamp"><%= task.detail %></td>
       <td class="box_short"><%= task.expired_at %></td>
-      <td class="box_short">作成者</td>
+      <td class="box_short"><%= task.user.name %></td>
       <td class="box_short"><%= task.created_at %></td>
       <td class="box_short"><%= task.updated_at %></td>
       <td class="small_box">
         <a><font size="1"><%= link_to '詳細', task_path(task.id) %></font></a>
-        <a><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></a>
+        <% if task.user_id == current_user.id %>
+          <a><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></a>
+        <% else %>
+        <% end %>
+
       </td>
     </tr>
     <% end %>

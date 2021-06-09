@@ -1,0 +1,7 @@
+<h2><%= @user.name %>のページ編集</h2>
+<span class="content"><%= link_to 'Back', user_path %></span>
+<br>
+<p><%= notice %></p>
+<br>
+
+<%= render 'form', user: @user %>

@@ -1,0 +1,48 @@
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3" class="title">ユーザー一覧</span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><%= link_to 'task', tasks_path %></span>
+    <span class="col-xs-1"><%= link_to 'My page', user_path(current_user.id) %></span>
+      <span class="col-xs-1">
+        <!-- % flash.each do |key, value| %>
+          %= content_tag(:div, value, class: "#{key}") %>
+        % end %> -->
+        <% if logged_in? %>
+          <%= link_to image_tag('logout.png', size: '30x30'), session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
+<p><%= notice %></p>
+<br>
+<table class="table">
+<br>
+  <thead>
+    <tr class="table-info">
+      <th><%= t('user.id') %></th>
+      <th><%= t('user.name') %></th>
+      <th><%= t('user.admin') %></th>
+      <th><%= t('user.task_count') %></th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.name %></td>
+          <td><%= user.admin %></td>
+          <td><%= user.tasks.count %></td>
+          <td><%= link_to '詳細', admin_user_path(user) %></td>
+          <td><%= link_to '編集', edit_admin_user_path(user) %></td>
+          <!-- <td><= link_to image_tag('delete.png', size: '15x15'), admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %></td> -->
+          <td><%= link_to '削除', admin_user_path(user), method: :delete, data: { confirm: '本当に削除しますか？' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+<br>
+<br>
+<button type="button" class="btn-outline-danger"><%= link_to '新規ユーザー作成', new_admin_user_path %></button>

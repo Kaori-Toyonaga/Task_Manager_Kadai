@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3"><class="name"><%= current_user.name %>のページ</span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><button type="button" class="btn-outline-danger"><%= link_to '新規作成', new_task_path %></button></span>
+    <span class="col-xs-1"><a class="name"><%= link_to "back", tasks_path %></a></span>
+      <span class="col-xs-1">
+        <% flash.each do |key, value| %>
+          <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
+        <% if logged_in? %>
+          <!-- <# link_to image_tag('logout.png', size: '30x30'), session_path(current_user.id), method: :delete %> -->
+          <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th class="box_short">#</th>
+      <!-- <th>カテゴリ</th> -->
+      <th class="box_short">ステータス</th>
+      <th class="box_short"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
+      <th class="task_row">題名</th>
+      <th class="box_clamp">説明</th>
+      <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
+      <th class="box_short">作成者</th>
+      <th class="box_short">作成日</th>
+      <th class="box_short">更新日</th>
+    </tr>
+
+    <tr>
+    <% @tasks.each do |task| %>
+      <td class="box_harf"><%= task.id %></td>
+      <!-- <td>カテゴリ</td> -->
+      <td class="box_short"><%= task.status %></td>
+      <td class="box_short"><%= task.priority %></td>
+      <td class="task_row"><%= task.title %></td>
+      <td class="line_clamp"><%= task.detail %></td>
+      <td class="box_short"><%= task.expired_at.strftime('%Y/%m/%d') %></td>
+      <td class="box_short"><%= task.user.name %></td>
+      <td class="box_short"><%= task.created_at.strftime('%Y/%m/%d') %></td>
+      <td class="box_short"><%= task.updated_at.strftime('%Y/%m/%d') %></td>
+      <td class="box_harf"><font size="1"><%= link_to 'の詳細', task_path(task.id) %></font></td>
+      <td class="box_harf"><%= link_to image_tag('delete.png', size: '15x15'), task_path(task.id), method: :delete,data: { confirm: '削除しますか？' } %></td>
+　  </tr>
+  </thead>
+    <% end %>
+</table>

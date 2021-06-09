@@ -1,4 +1,9 @@
 <h1>新しいタスク</h1>
 <%= render 'form', task: @task %>
+<p>
+  <span class="label">作成者:</span>
+  <span><%= current_user.name %></span>
+</p>
+
 
 <%= link_to "戻る", tasks_path %>
