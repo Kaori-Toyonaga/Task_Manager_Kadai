@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <span class="col-xs-3" class="title">Rednine 9</span>
+    <span class="col-xs-3" class="title"><font size="5">Rednine 9</font></span>
     <span class="col-xs-6"> </span>
     <span class="col-xs-1"><%= link_to 'MyPage', user_path(current_user.id) %></span>
     <span class="col-xs-1"><%= link_to 'Admin', admin_users_path(current_user.id) %></span>
@@ -24,19 +24,22 @@
   <%= f.text_field :title_key, :placeholder => "検索…", class: "title_serch" %>
   <%= f.label :status, 'ステータス' %>
   <%= f.select :status, [['未選択', '未選択'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], {}, {class: 'status_serch'} %>
+  <%= f.select :label_id, Label.all.collect { |label| [ label.title, label.id ] }, include_blank: true %>
   <%= f.submit '検索', class: "btn_search" %>
   <button type="button" class="btn-secondary"><%= link_to 'リセット', tasks_path %></button>
 <% end %>
 <br>
 <button type="button" class="btn-outline-danger"><%= link_to '新規作成', new_task_path %></button>
+<button type="button" class="btn btn-secondary"><%= link_to 'タグ作成', new_label_path %></button>
+<span><%= link_to 'タグ一覧', labels_path %></span>
 
 <table class="table">
   <thead class="thead-dark">
     <tr>
       <th class="box_short">#</th>
-      <!-- <th>ラベル</th> -->
       <th class="box_short">ステータス</th>
-      <th class="box_short"><%= link_to "優先順位", tasks_path(sort_priority: "true") %></th>
+      <th class="box_harf"><%= link_to "優先度", tasks_path(sort_priority: "true") %></th>
+      <th class="box_short">タグ</th>
       <th class="box_title">題名</th>
       <th class="box_clamp">説明</th>
       <th class="box_short"><%= link_to "終了期限", tasks_path(sort_expired: "true") %></th>
@@ -50,7 +53,14 @@
       <td class="box_harf"><%= task.id %></td>
       <!-- <td>ラベル</td> -->
       <td class="box_short"><%= task.status %></td>
-      <td class="box_short"><%= task.priority %></td>
+      <td class="box_harf"><%= task.priority %></td>
+      <td class="box_short">
+        <% task.task_labels.each do |task_label| %>
+          <span class="badge badge-pill badge-primary">
+            <%= task_label.label.title %>
+          </span>
+        <% end %>
+      </td>
       <td class="task_row"><%= task.title %></td>
       <td class="line_clamp"><%= task.detail %></td>
       <td class="box_short"><%= task.expired_at %></td>

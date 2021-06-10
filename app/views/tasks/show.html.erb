@@ -1,6 +1,6 @@
 <p>
   <font size="7">#:<%= @task.id %></font>
-  <% if task.user_id == current_user.id %>
+  <% if @task.user_id == current_user.id %>
   　<a class="box_harf"><%= link_to image_tag('edit.png', size: '20x20'), edit_task_path %></a>
   <% else %>
   <% end %>
@@ -13,12 +13,11 @@
       <span><%= @task.title %></span>
     </p>
     <p>
-      <!-- <span class="label">ラベル:</span> -->
       <span class="label">ステータス:</span>
       <span><%= @task.status %></span>
     </p>
     <p>
-      <span class="label">優先順位:</span>
+      <span class="label">優先度:</span>
       <span><%= @task.priority %></span>
       <span class="label">終了期限:</span>
       <span><%= @task.expired_at %></span>
@@ -32,6 +31,14 @@
     <p>
       <span class="label">作成者:</span>
       <span><%= @task.user.name %></span>
+    </p>
+    <p>
+      <span class="label">タグ:</span>
+      <% @task.task_labels.each do |task_label| %>
+        <span class="badge badge-pill badge-primary">
+          <%= task_label.label.title %>
+        </span>
+      <% end %>
     </p>
 
     <span>――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――<span>

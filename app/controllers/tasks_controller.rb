@@ -3,6 +3,7 @@ class TasksController < ApplicationController
 
   def index
     @tasks = Task.page(params[:page]).per(20)
+    @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
     if params[:title_key] && params[:status] != "未選択"
       @tasks = Task.search_title_status(params[:title_key], params[:status]).page(params[:page]).per(20)
       # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: params[:status])
@@ -47,6 +48,10 @@ class TasksController < ApplicationController
   end
 
   def update
+    unless params[:task][:label_ids]
+      @task.label_on_tasks.delete_all
+    end
+
     if @task.update(task_params)
        redirect_to tasks_path, notice: "更新しました。"
     else
@@ -61,11 +66,12 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id)
+    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id, label_ids: [] )
   end
 
   def set_task
     @task = Task.find(params[:id])
+    # @task = current_user.tasks.includes(:labels).find(params[:id])
   end
 
   def sort_params

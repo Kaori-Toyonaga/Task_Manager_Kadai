@@ -12,11 +12,15 @@ class Task < ApplicationRecord
     低: 1, 中: 2, 高: 3
   }
 
-scope :search_title_status, -> (title, status) { where("title LIKE ?", "%#{title}%") && where(status: status) }
-scope :search_title, -> (title) { where("title LIKE ?", "%#{title}%") }
-# scope :search_status, -> (status) { where(status: status) }
-scope :search_status, -> (status) { where(status: [2..4]) }
+  has_many :task_labels, dependent: :destroy, foreign_key: 'task_id'
+  has_many :labels, through: :task_labels, source: :label
 
-belongs_to :user
+  scope :search_title_status, -> (title, status) { where("title LIKE ?", "%#{title}%") && where(status: status) }
+  scope :search_title, -> (title) { where("title LIKE ?", "%#{title}%") }
+  # scope :search_status, -> (status) { where(status: status) }
+  scope :search_status, -> (status) { where(status: [2..4]) }
+
+  belongs_to :user
+
 
 end

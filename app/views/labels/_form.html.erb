@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3" class="title"><font size="5">Rednine 9</font></span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><%= link_to 'MyPage', user_path(current_user.id) %></span>
+    <span class="col-xs-1"><%= link_to 'Task', tasks_path %></span>
+      <span class="col-xs-1">
+        <% if logged_in? %>
+          <%= link_to 'ログアウト', session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
+<br>
+<a><%= link_to 'タグ一覧', labels_path %></a>
+<br>
+<br>
+<%= form_with(model: label, local: true) do |form| %>
+  <% if label.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(label.errors.count, "error") %> prohibited this label from being saved:</h2>
+
+      <ul>
+      <% label.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :タグ名 %>
+    <%= form.text_field :title %>
+    <%= form.submit '作成' %>
+  </div>
+
+<% end %>
