@@ -20,7 +20,7 @@ describe 'タスクモデル機能', type: :model do
         # title_seachはscopeで提示したタイトル検索用メソッドである。メソッド名は任意で構わない。
         # expect(Task.search_status('未着手')).to include(task)
         # expect(Task.search_status('未着手')).not_to include(second_task)
-        expect(Task.search_title_status('','未着手').count).to eq 1
+        expect(Task.search_status('未着手').count).to eq 1
       end
     end
 
@@ -29,8 +29,8 @@ describe 'タスクモデル機能', type: :model do
         task = FactoryBot.create(:task, title: 'title1', status: '未着手')
         second_task = FactoryBot.create(:task, title: 'sample', status: '着手中')
         # title_seachはscopeで提示したタイトル検索用メソッドである。メソッド名は任意で構わない。
-        expect(Task.search_title_status('title1','未着手')).to include(task)
-        expect(Task.search_title_status('title1','未着手')).not_to include(second_task)
+        expect(Task.search_title('title1').search_status('未着手')).to include(task)
+        expect(Task.search_title('title1').search_status('未着手')).not_to include(second_task)
       end
     end
   end

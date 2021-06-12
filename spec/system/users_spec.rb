@@ -13,30 +13,91 @@ RSpec.describe 'タスク管理機能', type: :system do
     @user = FactoryBot.create(:user)
   end
 
-  # describe 'ユーザー新規作成機能' do
-  #   context 'ユーザーを新規作成した場合' do
-  #     it 'ユーザー登録ができる' do
-  #
-  #       visit new_user_path
-  #       expect(new_user_path).to eq new_user_path
-  #       fill_in 'user[name]',with: 'user'
-  #       fill_in 'user[email]',with: 'user001@user.com'
-  #       #fill_in 'user[admin]', with: 'true​'
-  #       fill_in 'user[password]',with: '000000​'
-  #       fill_in 'user[password_confirmation]',with: '000000​'
-  #       click_on '登録'
-  #       expect(page).to have_content 'user'
-  #       #expect(page).to have_content 'user001@user.com'
-  #
-  #     end
-  #
-  #     it '​ログインしていない時はログイン画面に飛ぶテスト​' do
-  #       visit tasks_path
-  #       expect(current_path).to eq new_session_path
-  #     end
-  #
-  #   end
-  # end
+  describe 'ユーザー新規作成機能' do
+    context 'ユーザーを新規作成した場合' do
+      # it 'ユーザー登録ができる' do
+      #
+      #   visit new_user_path
+      #   expect(new_user_path).to eq new_user_path
+      #   fill_in 'user[name]',with: 'user'
+      #   fill_in 'user[email]',with: 'user001@user.com'
+      #   #fill_in 'user[admin]', with: 'true​'
+      #   fill_in 'user[password]',with: '000000​'
+      #   fill_in 'user[password_confirmation]',with: '000000​'
+      #   click_on '登録'
+      #   expect(page).to have_content 'user'
+      #   expect(page).to have_content 'user001@user.com'
+      #
+      # end
+      #
+      # it '​ログインしていない時はログイン画面に飛ぶテスト​' do
+      #   visit tasks_path
+      #   expect(current_path).to eq new_session_path
+      # end
+      #
+      it '​ユーザーはタグの登録ができる​' do
+        visit new_user_path
+        expect(new_user_path).to eq new_user_path
+        fill_in 'user[name]',with: 'user'
+        fill_in 'user[email]',with: 'user001@user.com'
+        #fill_in 'user[admin]', with: 'true​'
+        fill_in 'user[password]',with: '000000​'
+        fill_in 'user[password_confirmation]',with: '000000​'
+        click_on '登録'
+
+        visit tasks_path
+        visit new_label_path
+        label = FactoryBot.create(:label, title: 'タグ1')
+        find('input[type="submit"]').click
+        visit labels_path
+        expect(page).to have_content 'タグ1'
+      end
+
+      # it '​ユーザーはタグの検索ができる​' do
+      #   visit new_user_path
+      #   expect(new_user_path).to eq new_user_path
+      #   fill_in 'user[name]',with: 'user'
+      #   fill_in 'user[email]',with: 'user001@user.com'
+      #   #fill_in 'user[admin]', with: 'true​'
+      #   fill_in 'user[password]',with: '000000​'
+      #   fill_in 'user[password_confirmation]',with: '000000​'
+      #   click_on '登録'
+      #
+      #   visit tasks_path
+      #   visit new_label_path
+      #   label = FactoryBot.create(:label, title: 'タグ1')
+      #   find('input[type="submit"]').click
+      #   visit labels_path
+      #
+      #   visit new_label_path
+      #   label = FactoryBot.create(:label, title: 'タグ2')
+      #   find('input[type="submit"]').click
+      #   visit labels_path
+      #
+      #   visit new_task_path
+      #   fill_in 'task[title]', with: 'title1'
+      #   fill_in 'task[detail]', with: 'detail1'
+      #   find('input[type="checkbox", value="1"]').click
+      #   click_on '作成'
+      #
+      #   visit tasks_path
+      #
+      #   visit new_task_path
+      #   fill_in 'task[title]', with: 'sample'
+      #   fill_in 'task[detail]', with: 'detail2'
+      #   find('input[type="checkbox", value="2"]').click
+      #   click_on '作成'
+      #
+      #   visit tasks_path
+      #   select 'タグ1', from: 'タグ'
+      #   click_on '検索'
+      #   expect(page).to have_content 'title1'
+      #   expect(page).to_not have_content 'sample'
+      # end
+
+    end
+  end
+
   #
   # describe 'セッション機能' do
   #   context 'ログインした場合' do
@@ -89,91 +150,91 @@ RSpec.describe 'タスク管理機能', type: :system do
   #   end
   # end
 
-  describe "管理画面のテスト" do
-    context "管理ユーザ作成" do
-      it "管理者は管理画面にアクセスできること" do
-        visit new_session_path
-        fill_in 'session[email]',with: @user.email
-        fill_in 'session[password]',with: @user.password
-        click_on 'ログイン'
-        visit admin_users_path
-        expect(page).to have_content "ユーザー一覧"
-      end
-    end
-
-    context "一般ユーザーがログインしている場合" do
-      it "一般ユーザーは管理画面にはアクセスできない" do
-        visit new_session_path
-        fill_in 'session[email]',with: @user.email
-        fill_in 'session[password]',with: @user.password
-        visit tasks_path
-        visit admin_users_path
-        expect(page).to have_content 'ログインページ'
-      end
-
-      it "管理者はユーザ新規登録ができる" do
-        visit new_session_path
-        fill_in 'session[email]',with: @user.email
-        fill_in 'session[password]',with: @user.password
-        click_on 'ログイン'
-
-        visit admin_users_path
-        click_link '新規ユーザー作成'
-        fill_in 'user[name]',with: 'user2'
-        fill_in 'user[email]',with: 'user2@user.com'
-        fill_in 'user[password]',with: '111111'
-        fill_in 'user[password_confirmation]',with: '111111'
-        click_on "登録"
-        expect(page).to have_content "登録しました"
-      end
-
-      it "管理者はユーザの詳細画面へ行ける" do
-        visit new_session_path
-        fill_in 'session[email]',with: @user.email
-        fill_in 'session[password]',with: @user.password
-        click_on 'ログイン'
-
-        visit admin_users_path
-        click_link '新規ユーザー作成'
-        fill_in 'user[name]',with: 'user2'
-        fill_in 'user[email]',with: 'user2@user.com'
-        fill_in 'user[password]',with: '111111'
-        fill_in 'user[password_confirmation]',with: '111111'
-        click_on "登録"
-
-        click_link '詳細', match: :first
-        expect(page).to have_content "userのページ"
-      end
-
-      it "管理者ユーザーの編集画面からユーザーの編集ができる" do
-        visit new_session_path
-        fill_in 'session[email]',with: @user.email
-        fill_in 'session[password]',with: @user.password
-        click_on 'ログイン'
-
-        visit admin_users_path
-        click_link '新規ユーザー作成'
-        fill_in 'user[name]',with: 'user2'
-        fill_in 'user[email]',with: 'user2@user.com'
-        fill_in 'user[password]',with: '111111'
-        fill_in 'user[password_confirmation]',with: '111111'
-        click_on "登録"
-
-        click_link '編集', match: :first
-        fill_in 'user[name]', with: 'user3'
-        click_button '登録'
-        expect(page).to have_content "更新しました"
-      end
-
-      it "管理者はユーザーを削除できる" do
-        visit new_session_path
-        fill_in 'session[email]',with: @user.email
-        fill_in 'session[password]',with: @user.password
-        click_on 'ログイン'
-        visit admin_users_path
-        click_link "削除", match: :first
-      end
-    end
-  end
+  # describe "管理画面のテスト" do
+  #   context "管理ユーザ作成" do
+  #     it "管理者は管理画面にアクセスできること" do
+  #       visit new_session_path
+  #       fill_in 'session[email]',with: @user.email
+  #       fill_in 'session[password]',with: @user.password
+  #       click_on 'ログイン'
+  #       visit admin_users_path
+  #       expect(page).to have_content "ユーザー一覧"
+  #     end
+  #   end
+  #
+  #   context "一般ユーザーがログインしている場合" do
+  #     it "一般ユーザーは管理画面にはアクセスできない" do
+  #       visit new_session_path
+  #       fill_in 'session[email]',with: @user.email
+  #       fill_in 'session[password]',with: @user.password
+  #       visit tasks_path
+  #       visit admin_users_path
+  #       expect(page).to have_content 'ログインページ'
+  #     end
+  #
+  #     it "管理者はユーザ新規登録ができる" do
+  #       visit new_session_path
+  #       fill_in 'session[email]',with: @user.email
+  #       fill_in 'session[password]',with: @user.password
+  #       click_on 'ログイン'
+  #
+  #       visit admin_users_path
+  #       click_link '新規ユーザー作成'
+  #       fill_in 'user[name]',with: 'user2'
+  #       fill_in 'user[email]',with: 'user2@user.com'
+  #       fill_in 'user[password]',with: '111111'
+  #       fill_in 'user[password_confirmation]',with: '111111'
+  #       click_on "登録"
+  #       expect(page).to have_content "登録しました"
+  #     end
+  #
+  #     it "管理者はユーザの詳細画面へ行ける" do
+  #       visit new_session_path
+  #       fill_in 'session[email]',with: @user.email
+  #       fill_in 'session[password]',with: @user.password
+  #       click_on 'ログイン'
+  #
+  #       visit admin_users_path
+  #       click_link '新規ユーザー作成'
+  #       fill_in 'user[name]',with: 'user2'
+  #       fill_in 'user[email]',with: 'user2@user.com'
+  #       fill_in 'user[password]',with: '111111'
+  #       fill_in 'user[password_confirmation]',with: '111111'
+  #       click_on "登録"
+  #
+  #       click_link '詳細', match: :first
+  #       expect(page).to have_content "userのページ"
+  #     end
+  #
+  #     it "管理者ユーザーの編集画面からユーザーの編集ができる" do
+  #       visit new_session_path
+  #       fill_in 'session[email]',with: @user.email
+  #       fill_in 'session[password]',with: @user.password
+  #       click_on 'ログイン'
+  #
+  #       visit admin_users_path
+  #       click_link '新規ユーザー作成'
+  #       fill_in 'user[name]',with: 'user2'
+  #       fill_in 'user[email]',with: 'user2@user.com'
+  #       fill_in 'user[password]',with: '111111'
+  #       fill_in 'user[password_confirmation]',with: '111111'
+  #       click_on "登録"
+  #
+  #       click_link '編集', match: :first
+  #       fill_in 'user[name]', with: 'user3'
+  #       click_button '登録'
+  #       expect(page).to have_content "更新しました"
+  #     end
+  #
+  #     it "管理者はユーザーを削除できる" do
+  #       visit new_session_path
+  #       fill_in 'session[email]',with: @user.email
+  #       fill_in 'session[password]',with: @user.password
+  #       click_on 'ログイン'
+  #       visit admin_users_path
+  #       click_link "削除", match: :first
+  #     end
+  #   end
+  # end
 
 end

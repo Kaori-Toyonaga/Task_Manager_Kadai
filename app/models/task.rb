@@ -15,10 +15,14 @@ class Task < ApplicationRecord
   has_many :task_labels, dependent: :destroy, foreign_key: 'task_id'
   has_many :labels, through: :task_labels, source: :label
 
-  scope :search_title_status, -> (title, status) { where("title LIKE ?", "%#{title}%") && where(status: status) }
   scope :search_title, -> (title) { where("title LIKE ?", "%#{title}%") }
-  # scope :search_status, -> (status) { where(status: status) }
-  scope :search_status, -> (status) { where(status: [2..4]) }
+  scope :search_status, -> (status) { where(status: status) }
+  scope :search_label, -> (label_id) {
+    task_ids = TaskLabel.where(label_id: label_id).pluck(:task_id)
+    #中間テーブルにあるlabel_idを呼び出しつつ、pluckでlabel_idに紐づくtask_idを呼び出しtask_idsに代入
+    where(id: task_ids)
+    #上記で定義した（label_idに紐づくtask_idを持つtask）task_idsの中から検索する
+  }
 
   belongs_to :user
 

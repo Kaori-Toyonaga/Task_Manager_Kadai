@@ -24,7 +24,8 @@
   <%= f.text_field :title_key, :placeholder => "検索…", class: "title_serch" %>
   <%= f.label :status, 'ステータス' %>
   <%= f.select :status, [['未選択', '未選択'], ['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], {}, {class: 'status_serch'} %>
-  <%= f.select :label_id, Label.all.collect { |label| [ label.title, label.id ] }, include_blank: true %>
+  <%= f.label :search_label, 'タグ' %>
+  <%= f.select :label_id, @labels.map { |label| [ label.title, label.id ] }, include_blank: true %>
   <%= f.submit '検索', class: "btn_search" %>
   <button type="button" class="btn-secondary"><%= link_to 'リセット', tasks_path %></button>
 <% end %>
