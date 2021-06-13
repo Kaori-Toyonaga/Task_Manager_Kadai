@@ -2,7 +2,7 @@
 
 <% if @task.errors.any? %>
   <div id="error_explanation">
-    <h2>入力ミスが<%= @task.errors.count %>件あります。</h2>
+    <h5>入力ミスが<%= @task.errors.count %>件あります。</h5>
     <ul>
     <% @task.errors.full_messages.each do |msg| %>
       <li><%= msg %></li>
@@ -18,22 +18,25 @@
       <span class="text_field"><%= form.text_field :title %></span>
     </p>
     <p>
-      <!-- <span>ラベル:</span> -->
       <span class="label"><%= form.label :ステータス： %></span>
       <span><%= form.select :status, [['未着手', '未着手'], ['着手中', '着手中'], ['完了', '完了']], {} %></span>
     </p>
     <p>
-      <span class="label"><%= form.label :優先順位： %></span>
+      <span class="label"><%= form.label :優先度： %></span>
       <span><%= form.select :priority, [['低', '低'], ['中', '中'], ['高', '高']], {} %></span>
       <span class="label"><%= form.label :終了期限： %></span>
       <span><%= form.date_field :expired_at %></span>
     </p>
-    <p>
+    <!-- <p>
       <span class="label">作成日:</span>
-      <span><%= task.created_at %></span>
+      <span><= task.created_at %></span>
       <span class="label">更新日:</span>
-      <span><%= task.updated_at %></span>
-    </p>
+      <span><= task.updated_at %></span>
+    </p> -->
+    <% Label.all.each do |label| %>
+      <%= form.check_box :label_ids, { multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false }, label[:id] %>
+      <%= label.title %>
+    <% end %>
     <br>
     <span>――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――<span>
     <br>

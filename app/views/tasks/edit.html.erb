@@ -1,8 +1,13 @@
-<h1>#:<%= @task.id %></h1>
+<h4>#:<%= @task.id %></h4>
 <p>
   <span class="label">作成者:</span>
   <span><%= @task.user.name %></span>
+  <span class="label">作成日:</span>
+  <span><%= @task.created_at %></span>
+  <span class="label">更新日:</span>
+  <span><%= @task.updated_at %></span>
 </p>
+
 <%= render 'form', task: @task %>
 
 <span class="content"><%= link_to "back", tasks_path %></span>

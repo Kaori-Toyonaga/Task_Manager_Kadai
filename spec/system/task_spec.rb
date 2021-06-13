@@ -26,20 +26,18 @@ RSpec.describe 'タスク管理機能', type: :system do
   #       expect(page).to_not have_content 'sample'
   #     end
   #   end
-#
-#     context 'タイトルのあいまい検索とステータス検索をした場合' do
-#       it "検索キーワードをタイトルに含み、かつステータスに完全一致するタスク絞り込まれる" do
-#         visit new_task_path
-#         task = FactoryBot.create(:task, title: 'title1', status: '未着手')
-#         task = FactoryBot.create(:task, title: 'sample', status: '着手中')
-#
-#         visit tasks_path
-#         fill_in 'title_key', with: 'title1'
-#         select '未着手', from: 'ステータス'
-#         click_on '検索'
-#         expect(page).to have_content 'title1'
-#         expect(page).to_not have_content 'sample'
-#       end
+  # end
+
+#   context 'ステータス検索をした場合' do
+#     it "ステータスに完全一致するタスクが絞り込まれる" do
+#       visit new_task_path
+#       task = FactoryBot.create(:task, title: 'title1', status: '未着手')
+#       task = FactoryBot.create(:task, title: 'sample', status: '着手中')
+#       visit tasks_path
+#       select '未着手', from: 'ステータス'
+#       click_on '検索'
+#       expect(page).to have_content 'title1'
+#       expect(page).to_not have_content 'sample'
 #     end
 #   end
 
@@ -121,5 +119,4 @@ RSpec.describe 'タスク管理機能', type: :system do
   #     expect(task_list[1]).to have_content 'title1'
   #   end
   # end
-
 end

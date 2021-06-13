@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row">
+    <span class="col-xs-3" class="title"><font size="5">Rednine 9</font></span>
+    <span class="col-xs-6"> </span>
+    <span class="col-xs-1"><%= link_to 'MyPage', user_path(current_user.id) %></span>
+    <span class="col-xs-1"><%= link_to 'Task', tasks_path %></span>
+      <span class="col-xs-1">
+        <% if logged_in? %>
+          <%= link_to 'ログアウト', session_path(current_user.id), method: :delete %>
+        <% else %>
+        <% end %>
+    </span>
+  </div>
+<br>
+<h5>タグ一覧</h5>
+
+<div>
+<% flash.each do |key, value| %>
+  <%= content_tag(:div, value, class: "#{key}") %>
+<% end %>
+</div>
+
+
+<table>
+
+  <div>
+    <% @labels.each do |label| %>
+      <tr>
+        <td>
+          <span class="badge badge-pill badge-primary"><%= label.title %></span>
+        </td>
+        <!-- <td>%= link_to 'Show', label %></td> -->
+        <td class="col-xs-1">
+          <a><font size="1"><%= link_to '編集', edit_label_path(label) %></font></a>
+          <a><font size="1"><%= link_to '削除', label, method: :delete, data: { confirm: '本当に削除しますか?' } %></font></a>
+        </td>
+      </tr>
+    <% end %>
+  </div>
+</table>
+
+<br>
+
+<button type="button" class="btn-outline-danger"><%= link_to 'New Label', new_label_path %></button>

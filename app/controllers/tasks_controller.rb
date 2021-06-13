@@ -1,26 +1,20 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_labels, only: [:index]
 
   def index
-    @tasks = Task.page(params[:page]).per(20)
-    if params[:title_key] && params[:status] != "未選択"
-      @tasks = Task.search_title_status(params[:title_key], params[:status]).page(params[:page]).per(20)
-      # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: params[:status])
-    elsif params[:title_key] && params[:status] == "未選択"
-      @tasks = Task.search_title(params[:title_key]).search_status(params[:status]).page(params[:page]).per(20)
-      # @tasks = Task.search_title(params[:title_key]).search_status(status: [2..4]).page(params[:page]).per(20)
-      # @tasks = Task.where('title LIKE ?', "%#{params[:title_key]}%").where(status: [2..4])
-    # elsif params[:status] == "未選択"
-    #   @tasks = Task.search_status_2_4
-    # elsif params[:status] != "未選択"
-    #   @tasks = Task.search_status(params[:status])
-    elsif params[:sort_expired]
-      @tasks = Task.all.order('expired_at DESC').page(params[:page]).per(20)
-    elsif params[:sort_priority]
-      @tasks = Task.all.order('priority DESC').page(params[:page]).per(20)
-    else
-      @tasks = Task.all.order('created_at DESC').page(params[:page]).per(20)
-    end
+    @tasks = current_user.tasks
+    #user.rbでアソシエーション設定したhas_many :tasks, dependent: :destroyの「tasks」を利用
+    @tasks = @tasks.search_title(params[:title_key]) if params[:title_key].present?
+    @tasks = @tasks.search_status(params[:status]) if params[:status].present? && params[:status] != "未選択"
+    @tasks = @tasks.search_label(params[:label_id]) if params[:label_id].present?
+    # @tasks = @tasks.joins(:labels).where(labels: { id: params[:label_id] }) if params[:label_id].present?
+
+    @tasks = @tasks.order('expired_at DESC') if params[:sort_expired]
+    @tasks = @tasks.order('priority DESC') if params[:sort_priority]
+    @tasks = @tasks.order('created_at DESC')
+
+    @tasks = @tasks.page(params[:page]).per(2)
   end
 
   def show
@@ -47,6 +41,10 @@ class TasksController < ApplicationController
   end
 
   def update
+    unless params[:task][:label_ids]
+      @task.label_on_tasks.delete_all
+    end
+
     if @task.update(task_params)
        redirect_to tasks_path, notice: "更新しました。"
     else
@@ -61,11 +59,15 @@ class TasksController < ApplicationController
 
   private
   def task_params
-    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id)
+    params.require(:task).permit(:title, :detail, :expired_at, :status, :priority, :user_id, label_ids: [] )
   end
 
   def set_task
     @task = Task.find(params[:id])
+  end
+
+  def set_labels
+    @labels = Label.all
   end
 
   def sort_params

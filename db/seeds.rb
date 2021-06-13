@@ -7,4 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-User.create(name: 'admin_user', email: 'admin@admin.com', password: 'password', admin: true)
+# User.create(name: 'admin_user', email: 'admin@admin.com', password: 'password', admin: true)
+
+10.times do |i|
+    Label.create!(title: "Tag#{i + 1}")
+end
